@@ -41,15 +41,15 @@ WeatherFeels is not just another weather app – it's a community-driven platfor
 ## 🚀 Installation
 
 ### 1. Clone the repository
-\`\`\`bash
+```bash
 git clone https://github.com/haiqa2000/weatherfeels.git
 cd weatherfeels
-\`\`\`
+```
 
 ### 2. Install dependencies
-\`\`\`bash
+```bash
 npm install
-\`\`\`
+```
 
 ### 3. Set up MongoDB Atlas
 1. Create a free account at [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
@@ -58,25 +58,25 @@ npm install
 4. Whitelist your IP address (or allow access from anywhere for development)
 
 ### 4. Configure environment variables
-\`\`\`bash
+```bash
 cp .env.example .env
-\`\`\`
+```
 
 Edit `.env` and add your MongoDB connection string:
-\`\`\`
+```
 MONGODB_URI=mongodb+srv://YOUR_USERNAME:YOUR_PASSWORD@cluster0.mongodb.net/weatherfeels?retryWrites=true&w=majority
 PORT=3000
 NODE_ENV=development
-\`\`\`
+```
 
 ### 5. Run the application
-\`\`\`bash
+```bash
 # Development mode
 npm run dev
 
 # Production mode
 npm start
-\`\`\`
+```
 
 The server will start on `http://localhost:3000`
 
@@ -84,7 +84,7 @@ The server will start on `http://localhost:3000`
 Open `index.html` in your browser to access the WeatherFeels interface. 
 
 For better experience, you can serve it with a simple HTTP server:
-\`\`\`bash
+```bash
 # Using Python
 python -m http.server 8080
 
@@ -95,7 +95,7 @@ npx http-server -p 8080
 open index.html  # Mac
 start index.html  # Windows
 xdg-open index.html  # Linux
-\`\`\`
+```
 
 The interface provides:
 - Live weather display for Dubai (customizable)
@@ -107,19 +107,19 @@ The interface provides:
 ## 📡 API Endpoints
 
 ### Base URL
-\`\`\`
+```
 http://localhost:3000/api
-\`\`\`
+```
 
 ### Endpoints
 
 #### 1. Get Weather Data
-\`\`\`http
+```http
 GET /weather/:city
-\`\`\`
+```
 
 **Example Response:**
-\`\`\`json
+```json
 {
   "success": true,
   "data": {
@@ -131,10 +131,10 @@ GET /weather/:city
     "wind": 14
   }
 }
-\`\`\`
+```
 
 #### 2. Post a Comment
-\`\`\`http
+```http
 POST /comment
 Content-Type: application/json
 
@@ -144,20 +144,20 @@ Content-Type: application/json
   "comment": "Feeling sleepy in this heat 🥱",
   "mood": "tired"
 }
-\`\`\`
+```
 
 #### 3. Get Comments by City
-\`\`\`http
+```http
 GET /comments/:city?limit=20&page=1
-\`\`\`
+```
 
 #### 4. Get Mood Statistics
-\`\`\`http
+```http
 GET /mood/:city
-\`\`\`
+```
 
 **Example Response:**
-\`\`\`json
+```json
 {
   "success": true,
   "city": "Dubai",
@@ -169,42 +169,42 @@ GET /mood/:city
   },
   "dominantMood": "happy"
 }
-\`\`\`
+```
 
 #### 5. Global Mood Leaderboard
-\`\`\`http
+```http
 GET /globalmoods
-\`\`\`
+```
 
 #### 6. React to a Comment
-\`\`\`http
+```http
 POST /comment/:id/react
 Content-Type: application/json
 
 {
   "emoji": "❤️"
 }
-\`\`\`
+```
 
 ## 🌍 Deployment
 
 ### Deploy to Railway
 
 1. Install Railway CLI:
-\`\`\`bash
+```bash
 npm install -g @railway/cli
-\`\`\`
+```
 
 2. Login to Railway:
-\`\`\`bash
+```bash
 railway login
-\`\`\`
+```
 
 3. Initialize and deploy:
-\`\`\`bash
+```bash
 railway init
 railway up
-\`\`\`
+```
 
 4. Add environment variables in Railway dashboard
 
@@ -234,7 +234,7 @@ You can test the API using:
 
 ### Example curl commands:
 
-\`\`\`bash
+```bash
 # Get weather
 curl http://localhost:3000/api/weather/dubai
 
@@ -245,7 +245,7 @@ curl -X POST http://localhost:3000/api/comment \
 
 # Get comments
 curl http://localhost:3000/api/comments/dubai
-\`\`\`
+```
 
 ## 🎨 Frontend Integration
 
@@ -267,7 +267,7 @@ This backend is designed to work with any frontend framework:
 ## 📊 Database Schema
 
 ### Comment Model
-\`\`\`javascript
+```javascript
 {
   username: String,
   city: String,
@@ -282,7 +282,7 @@ This backend is designed to work with any frontend framework:
   },
   timestamp: Date
 }
-\`\`\`
+```
 
 ## 🚦 Development Roadmap
 
@@ -331,4 +331,4 @@ For support, open an issue in the GitHub repository or reach out through GitHub.
 ---
 
 **Built with ❤️ for the Athena Hackathon**
-\`\`\`
+```
