@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>WeatherFeels 🌤</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      background: #f0f8ff;
+    }
+
+    .section {
+      margin-bottom: 2rem;
+      padding: 1rem;
+      border: 1px solid #ccc;
+      background: #fff;
+      border-radius: 8px;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      margin-top: 0.5rem;
+    }
+
+    input, select, textarea, button {
+      margin-top: 0.25rem;
+      padding: 0.5rem;
+      font-size: 1rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      margin-top: 1rem;
+      background-color: #007bff;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    pre {
+      white-space: pre-wrap;
+      background: #f9f9f9;
+      padding: 1rem;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <h1>WeatherFeels 🌤</h1>
+
+  <div class="section" id="weatherSection">
+    <h2>Weather in Dubai</h2>
+    <pre id="weatherOutput">Loading...</pre>
+  </div>
+
+  <div class="section" id="formSection">
+    <h2>Post a Comment</h2>
+    <form id="commentForm">
+      <label for="username">Username:</label>
+      <input type="text" id="username" required />
+
+      <label for="city">City:</label>
+      <input type="text" id="city" value="Dubai" required />
+
+      <label for="comment">Comment:</label>
+      <textarea id="comment" rows="3" required></textarea>
+
+      <label for="mood">Mood:</label>
+      <select id="mood" required>
+        <option value="happy">😊 Happy</option>
+        <option value="neutral">😐 Neutral</option>
+        <option value="sad">😢 Sad</option>
+      </select>
+
+      <button type="submit">Submit Comment</button>
+    </form>
+    <p id="formStatus"></p>
+  </div>
+
+  <div class="section" id="commentsSection">
+    <h2>User Comments</h2>
+    <pre id="commentsOutput">Loading...</pre>
+  </div>
+
+  <div class="section" id="moodSection">
+    <h2>Mood Stats for Dubai</h2>
+    <pre id="moodOutput">Loading...</pre>
+  </div>
+
+  <div class="section" id="globalMoodsSection">
+    <h2>Global Mood Leaderboard</h2>
+    <pre id="globalMoodsOutput">Loading...</pre>
+  </div>
+
+  <script>
+    const baseURL = 'http://localhost:3000';
+
+    async function fetchAndDisplay(endpoint, elementId) {
+      try {
+        const res = await fetch(baseURL + endpoint);
+        const data = await res.json();
+        document.getElementById(elementId).textContent = JSON.stringify(data, null, 2);
+      } catch (err) {
+        document.getElementById(elementId).textContent = "Error fetching data.";
+        console.error(err);
+      }
+    }
+
+    async function refreshAll() {
+      await fetchAndDisplay('/api/weather/dubai', 'weatherOutput');
+      await fetchAndDisplay('/api/comments/dubai', 'commentsOutput');
+      await fetchAndDisplay('/api/mood/dubai', 'moodOutput');
+      await fetchAndDisplay('/api/globalmoods', 'globalMoodsOutput');
+    }
+
+    // Handle form submission
+    const form = document.getElementById('commentForm');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const username = document.getElementById('username').value;
+      const city = document.getElementById('city').value;
+      const comment = document.getElementById('comment').value;
+      const mood = document.getElementById('mood').value;
+
+      const body = {
+        username,
+        city,
+        comment,
+        mood
+      };
+
+      try {
+        const res = await fetch(baseURL + '/api/comment', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(body)
+        });
+
+        const data = await res.json();
+
+        if (data.success) {
+          document.getElementById('formStatus').textContent = "✅ Comment posted!";
+          form.reset();
+          await refreshAll(); // Refresh displayed data
+        } else {
+          document.getElementById('formStatus').textContent = "❌ Failed to post comment.";
+        }
+      } catch (err) {
+        document.getElementById('formStatus').textContent = "❌ Error sending request.";
+        console.error(err);
+      }
+    });
+
+    refreshAll(); // Load initial data
+  </script>
+</body>
+</html>
