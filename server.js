@@ -23,7 +23,7 @@ const PORT = process.env.PORT || 3000;
 
 // Security middleware
 app.use(helmet());
-app.use(cors());
+app.use(cors()); // This enables the frontend to connect from any origin
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

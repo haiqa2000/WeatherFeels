@@ -6,10 +6,11 @@ Created by: Haiqa Shahzad
 [![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org/)
 [![Express.js](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com/)
 [![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
+[![HTML5](https://img.shields.io/badge/HTML5-E34C26?style=for-the-badge&logo=html5&logoColor=white)](https://html.spec.whatwg.org/)
 
 ## 🎯 Project Overview
 
-WeatherFeels is not just another weather app – it's a community-driven platform that combines real-time weather data with emotional responses. Users can check the weather and share how it makes them feel, creating a unique blend of meteorological data and human emotion.
+WeatherFeels is not just another weather app – it's a community-driven platform that combines real-time weather data with emotional responses. Users can check the weather and share how it makes them feel, creating a unique blend of meteorological data and human emotion. Now featuring a complete web interface for easy interaction!
 
 ### ✨ Key Features
 
@@ -20,10 +21,12 @@ WeatherFeels is not just another weather app – it's a community-driven platfor
 - 📊 **Mood Analytics**: Aggregated mood statistics for each city
 - 🏆 **Global Mood Leaderboard**: See the happiest cities worldwide
 - 🚀 **RESTful API**: Clean, well-documented API endpoints
+- 🖥️ **Web Interface**: Complete HTML frontend for easy testing and demonstration
 
 ## 🛠️ Tech Stack
 
 - **Backend**: Node.js + Express.js
+- **Frontend**: HTML5 + Vanilla JavaScript
 - **Database**: MongoDB Atlas (free tier)
 - **Weather API**: Open-Meteo (completely free)
 - **Hosting**: Railway.app / Render / Heroku
@@ -76,6 +79,30 @@ npm start
 \`\`\`
 
 The server will start on `http://localhost:3000`
+
+### 6. Open the Web Interface
+Open `index.html` in your browser to access the WeatherFeels interface. 
+
+For better experience, you can serve it with a simple HTTP server:
+\`\`\`bash
+# Using Python
+python -m http.server 8080
+
+# Using Node.js
+npx http-server -p 8080
+
+# Or simply open the file
+open index.html  # Mac
+start index.html  # Windows
+xdg-open index.html  # Linux
+\`\`\`
+
+The interface provides:
+- Live weather display for Dubai (customizable)
+- Form to post comments with mood selection
+- Real-time display of all comments
+- Mood statistics visualization
+- Global mood leaderboard
 
 ## 📡 API Endpoints
 
@@ -190,9 +217,20 @@ railway up
 ## 🧪 Testing the API
 
 You can test the API using:
+- **Web Interface**: Open `index.html` in your browser for a complete testing interface
 - **Postman**: Import the endpoints and test
 - **curl**: Command line testing
 - **Thunder Client**: VS Code extension
+
+### Using the Web Interface:
+1. Start the backend server: `npm run dev`
+2. Open `index.html` in your browser
+3. The interface automatically displays:
+   - Current weather for Dubai
+   - Form to post comments with mood
+   - All existing comments
+   - Mood statistics
+   - Global mood leaderboard
 
 ### Example curl commands:
 
